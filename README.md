@@ -1,5 +1,7 @@
 # speedtest.cn-CN-ID
 
+[![Update](https://github.com/spiritLHLS/speedtest.cn-CN-ID/actions/workflows/main.yml/badge.svg)](https://github.com/spiritLHLS/speedtest.cn-CN-ID/actions/workflows/main.yml)
+
 数据每日更新，感谢测速站点提供的服务
 
 这里只展示CN地区的节点信息
