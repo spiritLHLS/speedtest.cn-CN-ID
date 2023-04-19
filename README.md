@@ -17,6 +17,34 @@ CSV格式：
 id country_code country city ip host port supplier
 ```
 
+### 对应 [speedtest.cn](https://www.speedtest.cn/) 的自动更新测速服务器ID的测速脚本
+
+```
+bash <(wget -qO- bash.spiritlhl.net/ecs-cn)
+```
+
+或
+
+```
+bash <(wget -qO- --no-check-certificate https://github.com/spiritLHLS/ecsspeed/raw/main/script/ecsspeed-cn.sh)
+```
+
+或国内用
+
+```
+bash <(wget -qO- --no-check-certificate https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/ecsspeed/main/script/ecsspeed-cn.sh)
+```
+
+<details>
+
+支持测速的架构：i386, x86_64, amd64, arm64, s390x, riscv64, ppc64le, ppc64
+
+涵盖中国三大运营商、香港、台湾的测速节点，默认的三网测速每个运营商选择本机ping值最低的两个节点测速，详情三网测速才是全测，节点列表每天自动更新一次。
+
+支持国内服务器测试(有判断是否为国内机器)，但由于国内服务器带宽过小，会很慢，详见初次运行的显示
+  
+</details>
+
 # 免责声明
 
 * 本仓库仅供学习
