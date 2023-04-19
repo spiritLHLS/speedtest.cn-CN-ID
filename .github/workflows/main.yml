@@ -14,20 +14,20 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     
-    - name: Setup Python environment
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.8
+#     - name: Setup Python environment
+#       uses: actions/setup-python@v2
+#       with:
+#         python-version: 3.8
         
-    - name: Install dependencies
-      run: |
-        pip install pypinyin
+#     - name: Install dependencies
+#       run: |
+#         pip install pypinyin
     
-    - name: Run main.py script
-      run: |
-        ls
-        python main.py
-        ls
+#     - name: Run main.py script
+#       run: |
+#         ls
+#         python main.py
+#         ls
         
     - name: Update README.md with current date
       run: |
@@ -52,11 +52,11 @@ jobs:
         git remote -v
         git status
     
-#     - name: Commit changes
-#       run: |
-#         (
-#         git commit -m "Update CSV files"
-#         ) || true
+    - name: Commit changes
+      run: |
+        (
+        git commit -m "Update CSV files"
+        ) || true
     
     
     
