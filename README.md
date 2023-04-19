@@ -6,16 +6,11 @@
 
 这里只展示CN地区的节点信息
 
+定期自动更新爬取到的测速节点ID，闭源爬虫，自动推送
+
 闭源收录服务器数量(实时)：2486
 
 数据更新时间: 2023/04/19
-
-所有数据以国家代号或运营商划分 
-
-CSV格式：
-```
-id country_code country city ip host port supplier
-```
 
 ### 对应 [speedtest.cn](https://www.speedtest.cn/) 的自动更新测速服务器ID的测速脚本
 
