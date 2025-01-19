@@ -40,11 +40,19 @@ bash <(wget -qO- --no-check-certificate https://ghproxy.com/https://raw.githubus
   
 </details>
 
+# 交流
+
+https://t.me/spiritlhl_bot
+
 # 免责声明
 
-* 本仓库仅供学习
-* 不可用于商业以及非法目的，使用本仓库代码产生的一切后果, 作者不承担任何责任.
+* 本仓库仅供学习使用。
+* 不可用于商业以及非法目的，使用本仓库代码产生的一切后果, 作者不承担任何责任。
 * 本仓库链接仅网络收集，侵权告知必删，使用相关链接产生的一切后果，作者不承担任何责任。
+
+# 广告
+
+[<img src="https://api.gitsponsors.com/api/badge/img?id=629760432" height="20">](https://api.gitsponsors.com/api/badge/link?p=wA81GM3rghaFbGpNB3xMU9kpqXOJhaj/QaRpXui9HnLTK1Is8MBP8GK8zFQBdaUJlSsJHyqoYE3gCbk62OewLiaXCe/Is//zaL6ANNo3l9SpqUreGjBT5ZqYJNG8RCQdZvhRhfN6Xjqs36jBvqL9sg==)
 
 ## Special statement:
 
