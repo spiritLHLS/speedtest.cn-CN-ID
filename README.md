@@ -2,6 +2,8 @@
 
 [![Update](https://github.com/spiritLHLS/speedtest.cn-CN-ID/actions/workflows/main.yml/badge.svg)](https://github.com/spiritLHLS/speedtest.cn-CN-ID/actions/workflows/main.yml)
 
+[<img src="https://api.gitsponsors.com/api/badge/img?id=629760432" height="20">](https://api.gitsponsors.com/api/badge/link?p=wA81GM3rghaFbGpNB3xMU/ivWd7HyfKb+v/eb63K5Gijb/J+1ECzbuwpN5axQcMo+O+Bt81jeAY99F2Gs00/DqlEKMdgfBiQFm3auKDevEiJ5wDIUNYZFT63vLtouBnlGrTHYb/IxrbwQUVSFQSZKA==)
+
 数据每日更新，感谢测速站点提供的服务
 
 这里只展示部分节点信息(全部CN地区和部分全球地区)，含 speedtest.cn 的测速地址
@@ -49,10 +51,6 @@ https://t.me/spiritlhl_bot
 * 本仓库仅供学习使用。
 * 不可用于商业以及非法目的，使用本仓库代码产生的一切后果, 作者不承担任何责任。
 * 本仓库链接仅网络收集，侵权告知必删，使用相关链接产生的一切后果，作者不承担任何责任。
-
-# 广告
-
-[<img src="https://api.gitsponsors.com/api/badge/img?id=629760432" height="20">](https://api.gitsponsors.com/api/badge/link?p=wA81GM3rghaFbGpNB3xMU9kpqXOJhaj/QaRpXui9HnLTK1Is8MBP8GK8zFQBdaUJlSsJHyqoYE3gCbk62OewLiaXCe/Is//zaL6ANNo3l9SpqUreGjBT5ZqYJNG8RCQdZvhRhfN6Xjqs36jBvqL9sg==)
 
 ## Special statement:
 
