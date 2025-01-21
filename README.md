@@ -2,7 +2,7 @@
 
 [![Update](https://github.com/spiritLHLS/speedtest.cn-CN-ID/actions/workflows/main.yml/badge.svg)](https://github.com/spiritLHLS/speedtest.cn-CN-ID/actions/workflows/main.yml)
 
-[<img src="https://api.gitsponsors.com/api/badge/img?id=629760432" height="20">](https://api.gitsponsors.com/api/badge/link?p=wA81GM3rghaFbGpNB3xMU/ivWd7HyfKb+v/eb63K5Gijb/J+1ECzbuwpN5axQcMo+O+Bt81jeAY99F2Gs00/DqlEKMdgfBiQFm3auKDevEiJ5wDIUNYZFT63vLtouBnlGrTHYb/IxrbwQUVSFQSZKA==)
+[<img src="https://api.gitsponsors.com/api/badge/img?id=629760432" height="20">](https://api.gitsponsors.com/api/badge/link?p=wA81GM3rghaFbGpNB3xMU9kpqXOJhaj/QaRpXui9HnLTK1Is8MBP8GK8zFQBdaUJlSsJHyqoYE3gCbk62OewLiaXCe/Is//zaL6ANNo3l9SpqUreGjBT5ZqYJNG8RCQdZvhRhfN6Xjqs36jBvqL9sg==)
 
 数据每日更新，感谢测速站点提供的服务
 
