@@ -1,0 +1,94 @@
+name: Daily Update Private Repo
+
+on:
+  schedule:
+    - cron: '0 23 * * *'
+  workflow_dispatch:
+
+jobs:
+  update_private_repo:
+    runs-on: pve-1
+    timeout-minutes: 60 
+    
+    steps:
+    - name: Checkout private repository
+      uses: actions/checkout@v2
+      with:
+        repository: spiritLHLS/speedtest.cn-ID
+        path: private-repo
+        token: ${{ secrets.REPO_ACCESS_TOKEN }}
+
+    - name: Create directories if they do not exist
+      run: |
+        cd private-repo
+        [ -d results ] || mkdir results
+        [ -d script ] || mkdir script
+        ls
+
+    - name: Move files to working directory
+      run: |
+        cd private-repo
+        mv results/*.csv ./ || true
+        mv script/*.py ./ || true
+        ls
+
+    - name: Setup Python environment
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
+    - name: Install dependencies
+      run: |
+        cd private-repo
+        pip install -r script/requirements.txt
+
+    - name: Run main.py script
+      run: |
+        cd private-repo
+        ls
+        python main.py
+        ls
+
+    - name: Move CSV files back to results directory
+      run: |
+        cd private-repo
+        mv *.csv results/ || true
+        mv *.py script/ || true
+        ls -al script/
+        ls -al results/
+        ls
+
+    - name: Update README in private repo
+      run: |
+        cd private-repo
+        sed -i "s/本仓库收录服务器数量(实时)：.*/本仓库收录服务器数量(实时)：$(($(wc -l < results/speedtest.csv) - 1))/" README.md
+
+    - name: Configure Git for private repo
+      run: |
+        cd private-repo
+        git config --global user.name "daily-update"
+        git config --global user.email "tg@spiritlhl.top"
+
+    - name: Add files to Git staging area
+      run: |
+        cd private-repo
+        ls
+        pwd
+        git add .
+
+    - name: Check Git status
+      run: |
+        cd private-repo
+        git branch -a
+        git remote -v
+        git status
+
+    - name: Commit changes to private repo
+      run: |
+        cd private-repo
+        git commit -m "Update CSV files" || echo "No changes to commit"
+
+    - name: Push changes to private repo
+      run: |
+        cd private-repo
+        git push https://${{ secrets.REPO_ACCESS_TOKEN }}@github.com/spiritLHLS/speedtest.cn-ID.git

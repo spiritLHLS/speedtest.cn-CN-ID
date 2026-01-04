@@ -1,0 +1,59 @@
+name: Sync to Public Repo
+
+on:
+  schedule:
+    - cron: '30 23 * * *'
+  workflow_dispatch:
+
+jobs:
+  sync_to_public:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+    
+    steps:
+    - name: Checkout private repository
+      uses: actions/checkout@v2
+      with:
+        repository: spiritLHLS/speedtest.cn-ID
+        path: private-repo
+        token: ${{ secrets.REPO_ACCESS_TOKEN }}
+
+    - name: Checkout public repository
+      uses: actions/checkout@v2
+      with:
+        repository: spiritLHLS/speedtest.cn-CN-ID
+        path: public-repo
+        token: ${{ secrets.REPO_ACCESS_TOKEN }}
+
+    - name: Copy CSV files from private to public repo
+      run: |
+        cp -r private-repo/results/CN.csv public-repo/
+        cp -r private-repo/results/TW.csv public-repo/
+        cp -r private-repo/results/HK.csv public-repo/
+        cp -r private-repo/results/JP.csv public-repo/
+        cp -r private-repo/results/SG.csv public-repo/
+        cp -r private-repo/results/mobile.csv public-repo/
+        cp -r private-repo/results/telecom.csv public-repo/
+        cp -r private-repo/results/unicom.csv public-repo/
+
+    - name: Update README in public repo
+      run: |
+        cd public-repo
+        sed -i "s/闭源收录服务器数量(实时)：.*/闭源收录服务器数量(实时)：$(($(wc -l < ../private-repo/results/speedtest.csv) - 1))/" README.md
+        date_str=$(date +'%Y/%m/%d')
+        sed -i "s#^数据更新时间:.*#数据更新时间: ${date_str}#" README.md
+
+    - name: Configure Git for public repo
+      run: |
+        cd public-repo
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+        git config user.name "github-actions[bot]"
+
+    - name: Commit and push to public repo
+      run: |
+        cd public-repo
+        git add .
+        git commit -m "Update csv from private repo" || echo "No changes to commit"
+        git push https://${{ secrets.REPO_ACCESS_TOKEN }}@github.com/spiritLHLS/speedtest.cn-CN-ID.git
+      continue-on-error: true

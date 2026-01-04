@@ -1,6 +1,8 @@
 # speedtest.cn-CN-ID
 
 [![Update](https://github.com/spiritLHLS/speedtest.cn-CN-ID/actions/workflows/main.yml/badge.svg)](https://github.com/spiritLHLS/speedtest.cn-CN-ID/actions/workflows/main.yml)
+[![Daily Update Private Repo](https://github.com/spiritLHLS/speedtest.cn-CN-ID/actions/workflows/daily-update-private.yml/badge.svg)](https://github.com/spiritLHLS/speedtest.cn-CN-ID/actions/workflows/daily-update-private.yml)
+[![Sync to Public Repo](https://github.com/spiritLHLS/speedtest.cn-CN-ID/actions/workflows/sync-to-public.yml/badge.svg)](https://github.com/spiritLHLS/speedtest.cn-CN-ID/actions/workflows/sync-to-public.yml)
 
 
 
