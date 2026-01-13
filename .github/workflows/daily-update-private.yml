@@ -8,7 +8,7 @@ on:
 jobs:
   update_private_repo:
     runs-on: self-hosted
-    timeout-minutes: 60 
+    timeout-minutes: 180
     
     steps:
     - name: Checkout private repository
