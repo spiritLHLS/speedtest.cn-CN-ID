@@ -8,8 +8,8 @@ on:
 jobs:
   update_private_repo:
     runs-on: self-hosted
-    timeout-minutes: 180
-    
+    timeout-minutes: 60
+
     steps:
     - name: Checkout private repository
       uses: actions/checkout@v2
@@ -23,13 +23,14 @@ jobs:
         cd private-repo
         [ -d results ] || mkdir results
         [ -d script ] || mkdir script
+        [ -d logs ] || mkdir logs
         ls
 
     - name: Move files to working directory
       run: |
         cd private-repo
-        mv results/*.csv ./ || true
-        mv script/*.py ./ || true
+        mv results/*.csv ./ 2>/dev/null || true
+        mv script/*.py ./ 2>/dev/null || true
         ls
 
     - name: Setup Python environment
@@ -40,20 +41,24 @@ jobs:
     - name: Install dependencies
       run: |
         cd private-repo
-        pip install -r script/requirements.txt
+        mkdir -p logs
+        pip install -r script/requirements.txt > /tmp/pip_output.log 2>&1 \
+          || { cp /tmp/pip_output.log "logs/error_pip.log"; echo "Dependency installation failed; error saved to private repo logs"; exit 1; }
 
     - name: Run main.py script
       run: |
         cd private-repo
+        mkdir -p logs
         ls
-        python main.py
+        python main.py > /tmp/main_output.log 2>&1 \
+          || { cp /tmp/main_output.log "logs/error_main.log"; echo "main.py execution failed; error saved to private repo logs"; exit 1; }
         ls
 
     - name: Move CSV files back to results directory
       run: |
         cd private-repo
-        mv *.csv results/ || true
-        mv *.py script/ || true
+        mv *.csv results/ 2>/dev/null || true
+        mv *.py script/ 2>/dev/null || true
         ls -al script/
         ls -al results/
         ls
@@ -86,9 +91,126 @@ jobs:
     - name: Commit changes to private repo
       run: |
         cd private-repo
-        git commit -m "Update CSV files" || echo "No changes to commit"
+        git commit -m "Update CSV files" 2>/dev/null || echo "No changes to commit"
 
     - name: Push changes to private repo
       run: |
         cd private-repo
-        git push https://${{ secrets.REPO_ACCESS_TOKEN }}@github.com/spiritLHLS/speedtest.cn-ID.git
+        git push https://${{ secrets.REPO_ACCESS_TOKEN }}@github.com/spiritLHLS/speedtest.cn-ID.git 2>/dev/null
+
+    - name: Commit and push error logs on failure
+      if: failure()
+      run: |
+        cd private-repo 2>/dev/null || true
+        mkdir -p logs
+        git config --global user.name "daily-update" 2>/dev/null || true
+        git config --global user.email "tg@spiritlhl.top" 2>/dev/null || true
+        # 只保留最新的 pip/main 各一份日志，旧文件用固定名覆盖（已在捕获时完成），确保无多余文件
+        git add logs/ 2>/dev/null || true
+        git diff --cached --quiet 2>/dev/null || git commit -m "Update error logs" 2>/dev/null || true
+        git push -q https://${{ secrets.REPO_ACCESS_TOKEN }}@github.com/spiritLHLS/speedtest.cn-ID.git 2>/dev/null || true
+
+  update_private_repo_fallback:
+    needs: update_private_repo
+    if: ${{ always() && (needs.update_private_repo.result == 'failure' || needs.update_private_repo.result == 'cancelled') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+
+    steps:
+    - name: Checkout private repository
+      uses: actions/checkout@v2
+      with:
+        repository: spiritLHLS/speedtest.cn-ID
+        path: private-repo
+        token: ${{ secrets.REPO_ACCESS_TOKEN }}
+
+    - name: Create directories if they do not exist
+      run: |
+        cd private-repo
+        [ -d results ] || mkdir results
+        [ -d script ] || mkdir script
+        [ -d logs ] || mkdir logs
+        ls
+
+    - name: Move files to working directory
+      run: |
+        cd private-repo
+        mv results/*.csv ./ 2>/dev/null || true
+        mv script/*.py ./ 2>/dev/null || true
+        ls
+
+    - name: Setup Python environment
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
+    - name: Install dependencies
+      run: |
+        cd private-repo
+        mkdir -p logs
+        pip install -r script/requirements.txt > /tmp/pip_output.log 2>&1 \
+          || { cp /tmp/pip_output.log "logs/error_pip.log"; echo "Dependency installation failed; error saved to private repo logs"; exit 1; }
+
+    - name: Run main.py script
+      run: |
+        cd private-repo
+        mkdir -p logs
+        ls
+        python main.py > /tmp/main_output.log 2>&1 \
+          || { cp /tmp/main_output.log "logs/error_main.log"; echo "main.py execution failed; error saved to private repo logs"; exit 1; }
+        ls
+
+    - name: Move CSV files back to results directory
+      run: |
+        cd private-repo
+        mv *.csv results/ 2>/dev/null || true
+        mv *.py script/ 2>/dev/null || true
+        ls -al script/
+        ls -al results/
+        ls
+
+    - name: Update README in private repo
+      run: |
+        cd private-repo
+        sed -i "s/本仓库收录服务器数量(实时)：.*/本仓库收录服务器数量(实时)：$(($(wc -l < results/speedtest.csv) - 1))/" README.md
+
+    - name: Configure Git for private repo
+      run: |
+        cd private-repo
+        git config --global user.name "daily-update"
+        git config --global user.email "tg@spiritlhl.top"
+
+    - name: Add files to Git staging area
+      run: |
+        cd private-repo
+        ls
+        pwd
+        git add .
+
+    - name: Check Git status
+      run: |
+        cd private-repo
+        git branch -a
+        git remote -v
+        git status
+
+    - name: Commit changes to private repo
+      run: |
+        cd private-repo
+        git commit -m "Update CSV files" 2>/dev/null || echo "No changes to commit"
+
+    - name: Push changes to private repo
+      run: |
+        cd private-repo
+        git push https://${{ secrets.REPO_ACCESS_TOKEN }}@github.com/spiritLHLS/speedtest.cn-ID.git 2>/dev/null
+
+    - name: Commit and push error logs on failure
+      if: failure()
+      run: |
+        cd private-repo 2>/dev/null || true
+        mkdir -p logs
+        git config --global user.name "daily-update" 2>/dev/null || true
+        git config --global user.email "tg@spiritlhl.top" 2>/dev/null || true
+        git add logs/ 2>/dev/null || true
+        git diff --cached --quiet 2>/dev/null || git commit -m "Update error logs" 2>/dev/null || true
+        git push -q https://${{ secrets.REPO_ACCESS_TOKEN }}@github.com/spiritLHLS/speedtest.cn-ID.git 2>/dev/null || true
