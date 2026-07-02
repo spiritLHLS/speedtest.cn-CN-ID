@@ -13,14 +13,14 @@ jobs:
     
     steps:
     - name: Checkout private repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v7
       with:
         repository: spiritLHLS/speedtest.cn-ID
         path: private-repo
         token: ${{ secrets.REPO_ACCESS_TOKEN }}
 
     - name: Checkout public repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v7
       with:
         repository: spiritLHLS/speedtest.cn-CN-ID
         path: public-repo
