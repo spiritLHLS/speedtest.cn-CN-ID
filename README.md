@@ -1,7 +1,6 @@
 # speedtest.cn-CN-ID
 
 [![Update](https://github.com/spiritLHLS/speedtest.cn-CN-ID/actions/workflows/main.yml/badge.svg)](https://github.com/spiritLHLS/speedtest.cn-CN-ID/actions/workflows/main.yml)
-[![Daily Update Private Repo](https://github.com/spiritLHLS/speedtest.cn-CN-ID/actions/workflows/daily-update-private.yml/badge.svg)](https://github.com/spiritLHLS/speedtest.cn-CN-ID/actions/workflows/daily-update-private.yml)
 [![Sync to Public Repo](https://github.com/spiritLHLS/speedtest.cn-CN-ID/actions/workflows/sync-to-public.yml/badge.svg)](https://github.com/spiritLHLS/speedtest.cn-CN-ID/actions/workflows/sync-to-public.yml)
 
 
@@ -10,9 +9,9 @@
 
 这里只展示部分节点信息(全部CN地区和部分全球地区)，含 speedtest.cn 的测速地址
 
-定期自动更新爬取到的测速节点ID，闭源爬虫，自动推送
+定期自动更新公开测速节点 ID，并自动推送更新结果
 
-闭源收录服务器数量(实时)：2977
+当前收录服务器数量（实时）：2977
 
 数据更新时间: 2026/08/27
 
@@ -52,7 +51,7 @@ https://t.me/spiritlhl_bot
 
 https://github.com/oneclickvirt/ecs
 
-包含部分私有国内测速节点，不进行公开，但支持更多的地区
+支持更多地区的公开测速数据
 
 # 免责声明
 
